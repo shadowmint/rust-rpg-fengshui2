@@ -3,5 +3,14 @@ name = "rust-rpg-fengshui2"
 version = "0.1.0"
 authors = ["Doug"]
 
+[[bin]]
+name = "fengshui-tool"
+path = "src/bin.rs"
+
 [dependencies]
 rand = "0.6.1"
+time = "*"
+
+[dependencies.base-logging]
+git = "https://github.com/shadowmint/rust-base-logging"
+tag = "0.2.0"

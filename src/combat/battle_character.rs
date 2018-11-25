@@ -1,5 +1,6 @@
 use characters::character::Character;
 use combat::rules::initiative::rule_derive_initiative;
+use log::game_log::GameLog;
 
 pub struct BattleCharacter<'a> {
     pub character: &'a Character,
@@ -15,8 +16,8 @@ impl<'a> BattleCharacter<'a> {
     }
 
     /// Update the init value for this character
-    pub fn roll_initiative(&mut self) {
-        self.initiative = rule_derive_initiative(self.character);
+    pub fn roll_initiative(&mut self, max: usize, game: &mut GameLog) {
+        self.initiative = rule_derive_initiative(self.character, max, game);
     }
 }
 
@@ -27,7 +28,7 @@ mod tests {
 
     #[test]
     fn test_create_battle_character() {
-        let fixture = thief_archetype();
+        let fixture = thief_archetype("Mr Min");
         let _ = BattleCharacter::new(&fixture);
     }
 }
