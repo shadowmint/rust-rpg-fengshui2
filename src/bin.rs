@@ -24,5 +24,23 @@ pub fn main() {
     battle.add_character(&mook3);
 
     battle.start_new_sequence();
-    game.log(battle.get_shot_counter())
+
+    println!("");
+    game.log(battle.get_shot_counter());
+
+    println!("");
+    loop {
+        match battle.next_shot() {
+            Some(s) => {
+                game.log(s);
+                match s.actors.iter().find(|i| i == mr1) {
+                    Some(actor) => {
+                        battle.perform_action(actor, )
+                    }
+                    None => {}
+                }
+            }
+            None => break
+        }
+    }
 }

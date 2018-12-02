@@ -18,7 +18,7 @@ impl<'a> Battle<'a> {
     pub fn new() -> Battle<'a> {
         return Battle {
             characters: Vec::new(),
-            current_shot: MAX_BATTLE_SHOT,
+            current_shot: MAX_BATTLE_SHOT + 1,
             current_sequence: None,
             game_log: GameLog::new(),
         };
@@ -70,11 +70,19 @@ impl<'a> Battle<'a> {
         return rtn;
     }
 
-    /*    /// Move on to the next shot, and return a list of the characters that act in it
-        pub fn next_shot(&mut self) -> Vec<&Character> {
-            let rtn = Vec::new();
-            return rtn;
-        }*/
+    /// Move on to the next shot, and return a list of the characters that act in it.
+    /// Returns None when there are no more shots.
+    pub fn next_shot(&mut self) -> Option<BattleShot<'a>> {
+        let mut rtn: Option<BattleShot<'a>> = None;
+        while self.current_shot > 0 && rtn.is_none() {
+            let shot = self.get_shot(self.current_shot);
+            if shot.actors.len() > 0 {
+                rtn = Some(shot)
+            }
+            self.current_shot -= 1;
+        }
+        return rtn;
+    }
 
     // Pick an action for a character
     //pub fn set_action(&mut self, character: &Character, action: BattleAction) {}

@@ -3,6 +3,7 @@ use log::game_log_entry::GameLogEntry;
 use log::game_log_entry::GameLogItem;
 use log::game_log_entry::GameLogItem::Messages;
 use std::fmt;
+use log::game_log_entry::GameLogItem::Message;
 
 /// This is the flat out maximum value any initiative value can have.
 pub const MAX_BATTLE_SHOT: usize = 20;
@@ -24,6 +25,12 @@ impl<'a> BattleShot<'a> {
             shot_number: shot,
             actors: Vec::new(),
         };
+    }
+}
+
+impl<'a> GameLogEntry for BattleShot<'a> {
+    fn message(&self) -> GameLogItem {
+        return Message(format!("{}", self));
     }
 }
 
